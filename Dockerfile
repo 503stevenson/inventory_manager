@@ -1,14 +1,12 @@
 FROM ruby:2.7.2
 
-# Default directory
-ENV INSTALL_PATH /opt/app
-RUN mkdir -p $INSTALL_PATH
+WORKDIR /myapp
 
 # Install rails
-RUN gem install rails bundler
+COPY ./backend/Gemfile /myapp/Gemfile
+COPY ./backend/Gemfile.lock /myapp/Gemfile.lock
+RUN bundle install
 
-WORKDIR /opt/app
+COPY ./backend .
 
-COPY ./inventory_manager .
-
-CMD rails s
+CMD ["rails", "server", "-b", "0.0.0.0"]
