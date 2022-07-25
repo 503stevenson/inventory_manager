@@ -1,0 +1,33 @@
+name: backend CI
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+
+env:
+  ENV_FILE: environment.properties
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cardinalby/export-env-action@v1
+          with:
+            envFile: ${{ env.ENV_FILE }}
+            expand: 'true'
+      
+      - name: build image
+        id: build
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          context: ${{ github.workspace }}
+          file: ${{ github.workspace }}/backend/Dockerfile
+          tags: inventory-manager:backend-latest
