@@ -33,9 +33,11 @@ jobs:
           tags: ${{ env.dockerhub_repo }}:backend-latest
 
       - uses: engineerd/setup-kind@v0.5.0
+        with:
+          wait: "30s"
       - name: smoke test & load image
         run: |
           kubectl cluster-info
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
-          kind load docker-image docker.io/adamstevey/inventory-manager:backend-latest
+          kind load docker-image docker.io/adamstevey/inventory-manager:backend-latest --name kind
