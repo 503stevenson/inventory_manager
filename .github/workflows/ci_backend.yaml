@@ -30,7 +30,7 @@ jobs:
           push: false
           context: ${{ github.workspace }}
           file: ${{ github.workspace }}/backend/Dockerfile
-          tags: inventory-manager:backend-latest
+          tags: ${{ env.dockerhub_repo }}:backend-latest
 
       - uses: engineerd/setup-kind@v0.5.0
       - name: smoke test & load image
@@ -38,4 +38,4 @@ jobs:
           kubectl cluster-info
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
-          kind load docker-image inventory-manager:backend-latest
+          kind load docker-image docker.io/adamstevey/inventory-manager:backend-latest
