@@ -47,3 +47,20 @@ jobs:
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
           kind load image-archive /tmp/image.tar --name kind
+      
+      - name: install kustomize
+        run: |
+          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+          chmod +x ./kustomize
+          mv ./kustomize /usr/local/bin
+      
+      - name: build kustomization & apply deployment
+        run: |
+          cd .github/backend_test
+          kustomize edit set image CONTAINER_IMAGE=${{ env.dockerhub_repo }}:backend-latest
+          kustomize build . | kubectl apply -f -
+          echo "Waiting for pod to start..."
+          sleep 5
+          kubectl get pods
+          kubectl describe deploy test
+
