@@ -31,3 +31,11 @@ jobs:
           context: ${{ github.workspace }}
           file: ${{ github.workspace }}/backend/Dockerfile
           tags: inventory-manager:backend-latest
+      
+      - name: KinD setup
+      - uses: engineerd/setup-kind@v0.5.0
+        run: |
+          kubectl cluster-info
+          echo "current-context:" $(kubectl config current-context)
+          echo "environment-kubeconfig:" ${KUBECONFIG}
+          kind load docker-image inventory-manager:backend-latest
