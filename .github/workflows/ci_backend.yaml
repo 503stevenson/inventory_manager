@@ -60,7 +60,7 @@ jobs:
           kustomize edit set image CONTAINER_IMAGE=${{ env.dockerhub_repo }}:backend-latest
           kustomize build . | kubectl apply -f -
           echo "Waiting for pod to start..."
-          sleep 5
+          sleep 60
           kubectl get pods
           kubectl describe deploy test
 
