@@ -1,22 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   name: test
-  labels:
-    app: test
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: test
-  template:
-    metadata:
-      labels:
-        app: test
-    spec:
-      containers:
-      - name: backend
-        image: CONTAINER_IMAGE
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 80
+  containers:
+  - name: backend
+    image: CONTAINER_IMAGE
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 80

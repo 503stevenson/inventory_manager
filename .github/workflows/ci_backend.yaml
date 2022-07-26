@@ -62,5 +62,5 @@ jobs:
           echo "Waiting for pod to start..."
           sleep 60
           kubectl get pods
-          kubectl describe deploy test
+          kubectl describe pod test
 
