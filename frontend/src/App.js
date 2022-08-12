@@ -1,22 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react'
 
 function App() {
+  const [header, setHeader] = useState("Not Updated");
+  const updateHeader = () => {
+    console.log(header === "Not Updated")
+    if (header === "Not Updated") {
+      setHeader("Updated");
+    } else if (header === "Updated") {
+      setHeader("Not Updated")
+    }
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>{ header }</h1>
+        <button onClick={ updateHeader }>Click Me</button>
       </header>
     </div>
   );
