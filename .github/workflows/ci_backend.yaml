@@ -57,7 +57,6 @@ jobs:
       
       - name: build kustomization & apply deployment
         run: |
-          kubectl taint nodes --all node-role.kubernetes.io/master-
           cd .github/backend_test
           kustomize edit set image CONTAINER_IMAGE=${{ env.dockerhub_repo }}:backend-latest
           kustomize build . | kubectl apply -f -
