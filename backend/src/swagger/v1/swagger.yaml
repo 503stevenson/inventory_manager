@@ -3,9 +3,82 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/companies":
+    get:
+      summary: All companies
+      tags:
+      - Companies
+      responses:
+        '200':
+          description: list of Companies
+    post:
+      summary: Register a new company
+      tags:
+      - Companies
+      parameters:
+      - name: name
+        in: query
+        schema:
+          type: string
+      - name: phone_number
+        in: query
+        schema:
+          type: string
+      - name: email
+        in: query
+        schema:
+          type: string
+      - name: password
+        in: query
+        schema:
+          type: string
+      - name: password_confirmation
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Company created
+    delete:
+      summary: Destroy an existing company
+      tags:
+      - Companies
+      responses:
+        '200':
+          description: Company deleted
+  "/companies/sign_in":
+    post:
+      summary: Sign in as a Company
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '200':
+          description: Logged in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+  "/companies/sign_out":
+    delete:
+      summary: Sign out a Company
+      tags:
+      - Sessions
+      responses:
+        '200':
+          description: Signed out
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000

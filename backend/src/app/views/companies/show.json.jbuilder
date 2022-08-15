@@ -1,1 +1,1 @@
-json.(@company, :id, :name, :email, :phone_number, :created_at, :updated_at)
+json.call(@company, :id, :name, :email, :phone_number, :created_at, :updated_at)

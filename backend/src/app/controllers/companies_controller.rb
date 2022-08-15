@@ -1,15 +1,18 @@
 class CompaniesController < ApplicationController
   # before_action :authenticate_user!, except: [:index, :posted_chits, :liked_chits, :followers, :following]
 
-  # def index
-  #   @user = current_user
-  #   @users = User.all
-  #   render 'users/array'
-  # end
-  #
-  # #def create
-  # #  sign_up(params.permit(:first_name, :last_name, :email, :password, :username))
-  # #end
+  def index
+    # @company = current_user
+    @companies = Company.all
+    render 'companies/array'
+  end
+
+  def create
+    @company = Company.create!(name: params[:name],
+                               email: params[:email],
+                               phone_number: params[:phone_number])
+    render 'companies/show'
+  end
   #
   def delete
     # @company = C
